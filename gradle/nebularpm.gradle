@@ -1,0 +1,33 @@
+apply from: rootProject.file("gradle/root.gradle")
+
+ospackage {
+    packageName = "spring-boot-nebula-rpm-demo"
+    version = "${project.version}"
+    release = 1
+    os = LINUX
+    type = BINARY
+    arch = NOARCH
+    permissionGroup "osboxes"
+    user "osboxes"
+
+    into "$baseDir"
+
+    from('scripts/rpm'){
+        into 'bin'
+    }
+    // Copy the actual .jar file
+    from(jar.outputs.files) {
+        // Strip the version from the jar filename
+        rename { String fileName ->
+            fileName.replace("-${project.version}", "")
+        }
+        fileMode 0500
+        into "bin"
+    }
+
+    from('scripts/rpm/bin') {
+        into "bin"
+        fileMode 0777
+    }
+
+}

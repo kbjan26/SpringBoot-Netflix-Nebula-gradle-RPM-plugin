@@ -1,0 +1,1 @@
+echo "Installed the package successfully"

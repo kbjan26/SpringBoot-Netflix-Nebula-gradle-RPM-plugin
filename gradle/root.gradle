@@ -1,0 +1,9 @@
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+ext {
+    osPackageVersion = "4.10"
+    baseDir="/opt/project/springboot/rpmdemo"
+}
